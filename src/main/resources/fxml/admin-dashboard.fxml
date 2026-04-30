@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.scheduler.controller.AdminDashboardController"
+            styleClass="dashboard">
+    
+    <top>
+        <HBox styleClass="header" alignment="CENTER_LEFT" spacing="20">
+            <padding><Insets top="20" right="30" bottom="20" left="30"/></padding>
+            <Label fx:id="welcomeLabel" styleClass="header-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button text="View Reviews" onAction="#handleViewReviews" styleClass="secondary-button"/>
+            <Button text="Logout" onAction="#handleLogout" styleClass="logout-button"/>
+        </HBox>
+    </top>
+    
+    <center>
+        <ScrollPane fitToWidth="true" styleClass="scroll-pane">
+            <VBox spacing="25" styleClass="content">
+                <padding><Insets top="25" right="30" bottom="25" left="30"/></padding>
+                
+                <!-- Statistics Cards -->
+                <GridPane hgap="20" vgap="20">
+                    <columnConstraints>
+                        <ColumnConstraints percentWidth="25"/>
+                        <ColumnConstraints percentWidth="25"/>
+                        <ColumnConstraints percentWidth="25"/>
+                        <ColumnConstraints percentWidth="25"/>
+                    </columnConstraints>
+                    
+                    <VBox styleClass="stat-card" GridPane.columnIndex="0">
+                        <Label text="Total Users" styleClass="stat-label"/>
+                        <Label fx:id="totalUsersLabel" text="0" styleClass="stat-value"/>
+                    </VBox>
+                    
+                    <VBox styleClass="stat-card" GridPane.columnIndex="1">
+                        <Label text="Total Appointments" styleClass="stat-label"/>
+                        <Label fx:id="totalAppointmentsLabel" text="0" styleClass="stat-value"/>
+                    </VBox>
+                    
+                    <VBox styleClass="stat-card" GridPane.columnIndex="2">
+                        <Label text="Pending" styleClass="stat-label"/>
+                        <Label fx:id="pendingLabel" text="0" styleClass="stat-value"/>
+                    </VBox>
+                    
+                    <VBox styleClass="stat-card" GridPane.columnIndex="3">
+                        <Label text="Completed" styleClass="stat-label"/>
+                        <Label fx:id="completedLabel" text="0" styleClass="stat-value"/>
+                    </VBox>
+                </GridPane>
+                
+                <!-- Create Staff/Admin Section -->
+                <VBox spacing="15" styleClass="card">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    
+                    <Text text="Create Staff or Admin Account" styleClass="section-title"/>
+                    
+                    <GridPane hgap="15" vgap="12" maxWidth="700">
+                        <columnConstraints>
+                            <ColumnConstraints minWidth="120" prefWidth="120"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        
+                        <Label text="Name *" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="form-label"/>
+                        <TextField fx:id="staffNameField" GridPane.columnIndex="1" GridPane.rowIndex="0" promptText="Full name"/>
+                        
+                        <Label text="Username *" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="form-label"/>
+                        <TextField fx:id="staffUsernameField" GridPane.columnIndex="1" GridPane.rowIndex="1" promptText="Username"/>
+                        
+                        <Label text="Email *" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="form-label"/>
+                        <TextField fx:id="staffEmailField" GridPane.columnIndex="1" GridPane.rowIndex="2" promptText="Email address"/>
+                        
+                        <Label text="Password *" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="form-label"/>
+                        <PasswordField fx:id="staffPasswordField" GridPane.columnIndex="1" GridPane.rowIndex="3" promptText="Password"/>
+                        
+                        <Label text="Role *" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="form-label"/>
+                        <ComboBox fx:id="roleComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4" maxWidth="Infinity" promptText="Select role"/>
+                        
+                        <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                            <Button text="Create Account" onAction="#handleCreateStaffOrAdmin" styleClass="primary-button"/>
+                        </HBox>
+                    </GridPane>
+                </VBox>
+                
+                <!-- Users Management Section -->
+                <VBox spacing="15" styleClass="card">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <Text text="All Users" styleClass="section-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="userSearchField" promptText="Search users..." prefWidth="250"/>
+                    </HBox>
+                    
+                    <TableView fx:id="usersTable" prefHeight="250" styleClass="modern-table">
+                        <columns>
+                            <TableColumn fx:id="nameColumn" text="Name" prefWidth="150" sortable="true"/>
+                            <TableColumn fx:id="usernameColumn" text="Username" prefWidth="120" sortable="true"/>
+                            <TableColumn fx:id="emailColumn" text="Email" prefWidth="180" sortable="true"/>
+                            <TableColumn fx:id="roleColumn" text="Role" prefWidth="100" sortable="true"/>
+                            <TableColumn fx:id="statusColumn" text="Status" prefWidth="120" sortable="true"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                    
+                    <HBox spacing="12">
+                        <Button text="Activate User" onAction="#handleActivateUser" styleClass="success-button"/>
+                        <Button text="Deactivate User" onAction="#handleDeactivateUser" styleClass="secondary-button"/>
+                        <Button text="Delete User" onAction="#handleDeleteUser" styleClass="danger-button"/>
+                    </HBox>
+                </VBox>
+                
+                <!-- Appointments Management Section -->
+                <VBox spacing="15" styleClass="card">
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+                    
+                    <HBox alignment="CENTER_LEFT" spacing="15">
+                        <Text text="All Appointments" styleClass="section-title"/>
+                        <Region HBox.hgrow="ALWAYS"/>
+                        <TextField fx:id="apptSearchField" promptText="Search appointments..." prefWidth="250"/>
+                    </HBox>
+                    
+                    <TableView fx:id="appointmentsTable" prefHeight="250" styleClass="modern-table">
+                        <columns>
+                            <TableColumn fx:id="userNameColumn" text="User" prefWidth="140" sortable="true"/>
+                            <TableColumn fx:id="staffNameColumn" text="Staff" prefWidth="140" sortable="true"/>
+                            <TableColumn fx:id="dateColumn" text="Date" prefWidth="110" sortable="true"/>
+                            <TableColumn fx:id="apptStatusColumn" text="Status" prefWidth="120" sortable="true"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                    
+                    <HBox spacing="12">
+                        <Button text="View Full Details" onAction="#handleViewAppointmentDetails" styleClass="primary-button"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

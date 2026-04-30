@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.scheduler.controller.LoginController"
+      alignment="CENTER" spacing="20" styleClass="login-container">
+    
+    <padding>
+        <Insets top="50" right="50" bottom="50" left="50"/>
+    </padding>
+    
+    <Text text="Appointment Scheduler" styleClass="title"/>
+    <Text text="Login to your account" styleClass="subtitle"/>
+    
+    <VBox spacing="10" maxWidth="300">
+        <Label text="Username"/>
+        <TextField fx:id="usernameField" promptText="Enter username"/>
+        
+        <Label text="Password"/>
+        <PasswordField fx:id="passwordField" promptText="Enter password"/>
+        
+        <Label fx:id="errorLabel" styleClass="error-label"/>
+        
+        <Button text="Login" onAction="#handleLogin" styleClass="primary-button" maxWidth="Infinity"/>
+        <Button text="Register" onAction="#handleRegister" styleClass="secondary-button" maxWidth="Infinity"/>
+    </VBox>
+</VBox>
